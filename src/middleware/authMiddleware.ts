@@ -2,12 +2,12 @@ import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { Role } from "@prisma/client";
 
-interface DecodedUser {
+export interface DecodedUser {
     userId: number;
     role: Role;
 }
 
-interface AuthRequest extends Request {
+export interface AuthRequest extends Request {
     user?: DecodedUser;
 }
 
@@ -17,9 +17,14 @@ if (!JWT_SECRET) {
     throw new Error("JWT_SECRET не задан в .env");
 }
 
-export const authenticate = (req: AuthRequest, res: Response, next: NextFunction) => {
+// Middleware для аутентификации
+export const authenticate = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
     const token = req.headers.authorization?.split(" ")[1];
-    if (!token) return res.status(401).json({ message: "Нет доступа" });
+
+    if (!token) {
+        res.status(401).json({ message: "Нет доступа" });
+        return;
+    }
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET!) as DecodedUser;

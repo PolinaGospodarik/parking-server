@@ -26,7 +26,7 @@ class AuthService {
             throw new Error("Пользователь с таким номером уже существует");
         }
 
-        const generatedPassword = crypto.randomBytes(4).toString("hex"); // 8-символьный пароль
+        const generatedPassword = crypto.randomBytes(4).toString("hex");
         const hashedPassword = await bcrypt.hash(generatedPassword, 10);
 
         const user = await prisma.user.create({

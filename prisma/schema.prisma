@@ -13,10 +13,22 @@ model User {
   phoneNumber String @unique
   password    String
   role        Role   @default(USER)
+  cars        Car[]  @relation("UserCars")
 }
 
 enum Role {
   USER
   ADMIN
   GUARD
+}
+
+model Car {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  carNumber String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation("UserCars", fields: [userId], references: [id])
+
+  @@index([carNumber])
 }
