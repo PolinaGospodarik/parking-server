@@ -4,7 +4,7 @@ import authService from "../services/authService";
 
 export const loginUser = async (req: Request, res: Response) => {
     try {
-        const token = await authService.login(req.body.params);
+        const token = await authService.login(req.body);
         res.json({ token });
     } catch (error) {
         if (error instanceof Error) {

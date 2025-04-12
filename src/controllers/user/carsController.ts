@@ -53,7 +53,7 @@ export const getCarById = async (req: AuthRequest, res: Response): Promise<void>
 
 export const createCar = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const { number } = req.body.params;
+        const { number } = req.body;
 
         if (!req.user) {
             res.status(401).json({ message: "Пользователь не авторизован" });
