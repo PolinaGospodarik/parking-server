@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>796</IntrospectionStateNumber>
+      <IntrospectionStateNumber>975</IntrospectionStateNumber>
       <ServerVersion>17.4</ServerVersion>
       <StartupTime>1744377302</StartupTime>
       <TimeZones>true ACDT
@@ -298,9 +298,9 @@ false Asia/Dili
 false Asia/Dubai
 false Asia/Dushanbe
 true Asia/Famagusta
-false Asia/Gaza
+true Asia/Gaza
 false Asia/Harbin
-false Asia/Hebron
+true Asia/Hebron
 false Asia/Ho_Chi_Minh
 false Asia/Hong_Kong
 false Asia/Hovd
@@ -794,13 +794,10 @@ false Zulu
       <Grants>11||10|C|G
 11||-9223372036854775808|U|G
 11||10|U|G
-2200||6171|C|G
-2200||-9223372036854775808|U|G
-2200||6171|U|G
 14704||10|C|G
 14704||-9223372036854775808|U|G
 14704||10|U|G</Grants>
-      <IntrospectionStateNumber>796</IntrospectionStateNumber>
+      <IntrospectionStateNumber>975</IntrospectionStateNumber>
       <ObjectId>16388</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4225,280 +4222,403 @@ false Zulu
       <OwnerName>postgres</OwnerName>
     </schema>
     <schema id="265" parent="2" name="public">
-      <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>796</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2025-04-11.13:38:20</LastIntrospectionLocalTimestamp>
-      <ObjectId>2200</ObjectId>
-      <StateNumber>532</StateNumber>
-      <OwnerName>pg_database_owner</OwnerName>
+      <IntrospectionStateNumber>975</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2025-04-12.18:25:41</LastIntrospectionLocalTimestamp>
+      <ObjectId>17532</ObjectId>
+      <StateNumber>917</StateNumber>
+      <OwnerName>postgres</OwnerName>
     </schema>
-    <object-type id="266" parent="265" name="Role">
-      <Labels>USER
-ADMIN
-GUARD</Labels>
-      <ObjectId>16430</ObjectId>
-      <StateNumber>763</StateNumber>
+    <object-type id="266" parent="265" name="BookingStatus">
+      <Labels>PENDING
+ACTIVE
+COMPLETED
+CANCELLED</Labels>
+      <ObjectId>17578</ObjectId>
+      <StateNumber>932</StateNumber>
       <SubCategory>enum</SubCategory>
       <SubKind>enum</SubKind>
       <OwnerName>postgres</OwnerName>
     </object-type>
-    <sequence id="267" parent="265" name="Car_id_seq">
-      <ObjectId>16558</ObjectId>
+    <object-type id="267" parent="265" name="Role">
+      <Labels>USER
+ADMIN
+GUARD</Labels>
+      <ObjectId>17553</ObjectId>
+      <StateNumber>924</StateNumber>
+      <SubCategory>enum</SubCategory>
+      <SubKind>enum</SubKind>
+      <OwnerName>postgres</OwnerName>
+    </object-type>
+    <sequence id="268" parent="265" name="Booking_id_seq">
+      <ObjectId>17587</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>793</StateNumber>
+      <StateNumber>932</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="268" parent="265" name="User_id_seq">
-      <ObjectId>16419</ObjectId>
+    <sequence id="269" parent="265" name="Car_id_seq">
+      <ObjectId>17560</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>759</StateNumber>
+      <StateNumber>928</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <table id="269" parent="265" name="Car">
-      <ObjectId>16559</ObjectId>
-      <StateNumber>793</StateNumber>
+    <sequence id="270" parent="265" name="User_id_seq">
+      <ObjectId>17542</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>920</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <table id="271" parent="265" name="Booking">
+      <ObjectId>17588</ObjectId>
+      <StateNumber>971</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="270" parent="265" name="User">
-      <ObjectId>16420</ObjectId>
-      <StateNumber>793</StateNumber>
+    <table id="272" parent="265" name="Car">
+      <ObjectId>17561</ObjectId>
+      <StateNumber>928</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="271" parent="265" name="_prisma_migrations">
-      <ObjectId>16410</ObjectId>
-      <StateNumber>757</StateNumber>
+    <table id="273" parent="265" name="User">
+      <ObjectId>17543</ObjectId>
+      <StateNumber>928</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <column id="272" parent="269" name="id">
+    <table id="274" parent="265" name="_prisma_migrations">
+      <ObjectId>17533</ObjectId>
+      <StateNumber>918</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <column id="275" parent="271" name="id">
+      <DefaultExpression>nextval(&apos;&quot;Booking_id_seq&quot;&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>932</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <SequenceId>17587</SequenceId>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="276" parent="271" name="carId">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>932</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="277" parent="271" name="status">
+      <DefaultExpression>&apos;PENDING&apos;::&quot;BookingStatus&quot;</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>932</StateNumber>
+      <StoredType>&quot;BookingStatus&quot;|0s</StoredType>
+      <TypeId>17578</TypeId>
+    </column>
+    <column id="278" parent="271" name="createdAt">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>932</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="279" parent="271" name="updatedAt">
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StateNumber>932</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="280" parent="271" name="endTime">
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StateNumber>936</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="281" parent="271" name="startTime">
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+      <StateNumber>936</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="282" parent="271" name="placeNumber">
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+      <StateNumber>971</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <foreign-key id="283" parent="271" name="Booking_carId_fkey">
+      <ColNames>carId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>17600</ObjectId>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>932</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>17561</RefTableId>
+    </foreign-key>
+    <index id="284" parent="271" name="Booking_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>17596</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>932</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="285" parent="271" name="Booking_carId_idx">
+      <ColNames>carId</ColNames>
+      <ObjectId>17598</ObjectId>
+      <StateNumber>932</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="286" parent="271" name="Booking_startTime_endTime_idx">
+      <ColNames>startTime
+endTime</ColNames>
+      <ObjectId>17605</ObjectId>
+      <StateNumber>936</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="287" parent="271" name="Booking_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>17597</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>932</StateNumber>
+      <UnderlyingIndexId>17596</UnderlyingIndexId>
+    </key>
+    <column id="288" parent="272" name="id">
       <DefaultExpression>nextval(&apos;&quot;Car_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>793</StateNumber>
+      <StateNumber>928</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16558</SequenceId>
+      <SequenceId>17560</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="273" parent="269" name="userId">
+    <column id="289" parent="272" name="userId">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>793</StateNumber>
+      <StateNumber>928</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="274" parent="269" name="carNumber">
+    <column id="290" parent="272" name="carNumber">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>793</StateNumber>
+      <StateNumber>928</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="275" parent="269" name="createdAt">
+    <column id="291" parent="272" name="createdAt">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>793</StateNumber>
+      <StateNumber>928</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="276" parent="269" name="updatedAt">
+    <column id="292" parent="272" name="updatedAt">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>793</StateNumber>
+      <StateNumber>928</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <foreign-key id="277" parent="269" name="Car_userId_fkey">
+    <foreign-key id="293" parent="272" name="Car_userId_fkey">
       <ColNames>userId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16570</ObjectId>
+      <ObjectId>17572</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>793</StateNumber>
+      <StateNumber>928</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>16420</RefTableId>
+      <RefTableId>17543</RefTableId>
     </foreign-key>
-    <index id="278" parent="269" name="Car_pkey">
+    <index id="294" parent="272" name="Car_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16566</ObjectId>
+      <ObjectId>17568</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>793</StateNumber>
+      <StateNumber>928</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="279" parent="269" name="Car_carNumber_key">
+    <index id="295" parent="272" name="Car_carNumber_key">
       <ColNames>carNumber</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16568</ObjectId>
-      <StateNumber>793</StateNumber>
+      <ObjectId>17570</ObjectId>
+      <StateNumber>928</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="280" parent="269" name="Car_carNumber_idx">
+    <index id="296" parent="272" name="Car_carNumber_idx">
       <ColNames>carNumber</ColNames>
-      <ObjectId>16569</ObjectId>
-      <StateNumber>793</StateNumber>
+      <ObjectId>17571</ObjectId>
+      <StateNumber>928</StateNumber>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="281" parent="269" name="Car_pkey">
+    <key id="297" parent="272" name="Car_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16567</ObjectId>
+      <ObjectId>17569</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>793</StateNumber>
-      <UnderlyingIndexId>16566</UnderlyingIndexId>
+      <StateNumber>928</StateNumber>
+      <UnderlyingIndexId>17568</UnderlyingIndexId>
     </key>
-    <column id="282" parent="270" name="id">
+    <column id="298" parent="273" name="id">
       <DefaultExpression>nextval(&apos;&quot;User_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>759</StateNumber>
+      <StateNumber>920</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16419</SequenceId>
+      <SequenceId>17542</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="283" parent="270" name="fullName">
+    <column id="299" parent="273" name="fullName">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>759</StateNumber>
+      <StateNumber>920</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="284" parent="270" name="phoneNumber">
+    <column id="300" parent="273" name="phoneNumber">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>759</StateNumber>
+      <StateNumber>920</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="285" parent="270" name="password">
+    <column id="301" parent="273" name="password">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>759</StateNumber>
+      <StateNumber>920</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="286" parent="270" name="role">
+    <column id="302" parent="273" name="role">
       <DefaultExpression>&apos;USER&apos;::&quot;Role&quot;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>763</StateNumber>
+      <StateNumber>924</StateNumber>
       <StoredType>&quot;Role&quot;|0s</StoredType>
-      <TypeId>16430</TypeId>
+      <TypeId>17553</TypeId>
     </column>
-    <index id="287" parent="270" name="User_pkey">
+    <index id="303" parent="273" name="User_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16426</ObjectId>
+      <ObjectId>17549</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>759</StateNumber>
+      <StateNumber>920</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="288" parent="270" name="User_phoneNumber_key">
+    <index id="304" parent="273" name="User_phoneNumber_key">
       <ColNames>phoneNumber</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16428</ObjectId>
-      <StateNumber>759</StateNumber>
+      <ObjectId>17551</ObjectId>
+      <StateNumber>920</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="289" parent="270" name="User_pkey">
+    <key id="305" parent="273" name="User_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16427</ObjectId>
+      <ObjectId>17550</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>759</StateNumber>
-      <UnderlyingIndexId>16426</UnderlyingIndexId>
+      <StateNumber>920</StateNumber>
+      <UnderlyingIndexId>17549</UnderlyingIndexId>
     </key>
-    <column id="290" parent="271" name="id">
+    <column id="306" parent="274" name="id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>757</StateNumber>
+      <StateNumber>918</StateNumber>
       <StoredType>varchar(36)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="291" parent="271" name="checksum">
+    <column id="307" parent="274" name="checksum">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>757</StateNumber>
+      <StateNumber>918</StateNumber>
       <StoredType>varchar(64)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="292" parent="271" name="finished_at">
+    <column id="308" parent="274" name="finished_at">
       <Position>3</Position>
-      <StateNumber>757</StateNumber>
+      <StateNumber>918</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="293" parent="271" name="migration_name">
+    <column id="309" parent="274" name="migration_name">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>757</StateNumber>
+      <StateNumber>918</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="294" parent="271" name="logs">
+    <column id="310" parent="274" name="logs">
       <Position>5</Position>
-      <StateNumber>757</StateNumber>
+      <StateNumber>918</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="295" parent="271" name="rolled_back_at">
+    <column id="311" parent="274" name="rolled_back_at">
       <Position>6</Position>
-      <StateNumber>757</StateNumber>
+      <StateNumber>918</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="296" parent="271" name="started_at">
+    <column id="312" parent="274" name="started_at">
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
-      <StateNumber>757</StateNumber>
+      <StateNumber>918</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="297" parent="271" name="applied_steps_count">
+    <column id="313" parent="274" name="applied_steps_count">
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
-      <StateNumber>757</StateNumber>
+      <StateNumber>918</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="298" parent="271" name="_prisma_migrations_pkey">
+    <index id="314" parent="274" name="_prisma_migrations_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16417</ObjectId>
+      <ObjectId>17540</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>757</StateNumber>
+      <StateNumber>918</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="299" parent="271" name="_prisma_migrations_pkey">
+    <key id="315" parent="274" name="_prisma_migrations_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16418</ObjectId>
+      <ObjectId>17541</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>757</StateNumber>
-      <UnderlyingIndexId>16417</UnderlyingIndexId>
+      <StateNumber>918</StateNumber>
+      <UnderlyingIndexId>17540</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>

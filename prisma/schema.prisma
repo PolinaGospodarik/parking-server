@@ -23,12 +23,38 @@ enum Role {
 }
 
 model Car {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   userId    Int
-  carNumber String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation("UserCars", fields: [userId], references: [id])
+  carNumber String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation("UserCars", fields: [userId], references: [id])
+  Booking   Booking[]
 
   @@index([carNumber])
+}
+
+model Booking {
+  id    Int @id @default(autoincrement())
+  car   Car @relation(fields: [carId], references: [id])
+  carId Int
+
+  placeNumber Int
+
+  startTime DateTime
+  endTime   DateTime
+  status    BookingStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([carId])
+  @@index([startTime, endTime])
+}
+
+enum BookingStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  CANCELLED
 }
