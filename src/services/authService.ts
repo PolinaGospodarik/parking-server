@@ -1,7 +1,7 @@
 import prisma from "../config/database.ts";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { Role} from "@prisma/client";
+import {Role} from "@prisma/client";
 import crypto from "crypto";
 
 interface RegisterInput {
@@ -16,12 +16,12 @@ interface LoginInput {
 }
 
 class AuthService {
-    async register({ fullName, phoneNumber, role }: RegisterInput): Promise<object> {
+    async register({fullName, phoneNumber, role}: RegisterInput): Promise<object> {
         if (!Object.values(Role).includes(role)) {
             throw new Error("Недопустимая роль");
         }
 
-        const existingUser = await prisma.user.findUnique({ where: { phoneNumber } });
+        const existingUser = await prisma.user.findUnique({where: {phoneNumber}});
         if (existingUser) {
             throw new Error("Пользователь с таким номером уже существует");
         }
@@ -42,7 +42,7 @@ class AuthService {
             throw new Error("Не удалось создать пользователя");
         }
 
-        const { password: _, ...safeUser } = user;
+        const {password: _, ...safeUser} = user;
 
         return {
             ...safeUser,
@@ -51,18 +51,46 @@ class AuthService {
     }
 
     // Вход пользователя
-    async login({ phoneNumber, password }: LoginInput): Promise<string> {
-        const user = await prisma.user.findUnique({ where: { phoneNumber } });
+    async login({phoneNumber, password}: LoginInput): Promise<{ accessToken: string; refreshToken: string }> {
+        const user = await prisma.user.findUnique({where: {phoneNumber}});
 
         if (!user || !(await bcrypt.compare(password, user.password))) {
             throw new Error("Неверный номер телефона или пароль");
         }
 
-        return jwt.sign(
-            { userId: user.id, role: user.role },
+        const payload = {userId: user.id, role: user.role};
+
+        const accessToken = jwt.sign(
+            payload,
             process.env.JWT_SECRET as string,
-            { expiresIn: "1h" }
+            {expiresIn: '1h'}
         );
+
+        const refreshToken = jwt.sign(
+            payload,
+            process.env.REFRESH_SECRET as string
+        );
+
+        return {accessToken, refreshToken};
+    }
+
+    async refresh(refreshToken:string): Promise<string|null>{
+        try {
+            const payload = jwt.verify(
+                refreshToken,
+                process.env.REFRESH_SECRET as string
+            ) as { userId: string; role: string };
+
+            const newAccessToken = jwt.sign(
+                { userId: payload.userId, role: payload.role },
+                process.env.JWT_SECRET as string,
+                { expiresIn: "1h" }
+            );
+
+            return newAccessToken;
+        } catch (err) {
+            return null;
+        }
     }
 }
 
