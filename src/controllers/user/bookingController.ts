@@ -119,3 +119,37 @@ export const deleteBooking = async (req: AuthRequest, res: Response): Promise<vo
         res.status(400).json({error: (error as Error).message});
     }
 };
+
+export const getCurrentBooking = async (req: AuthRequest, res: Response) => {
+    try {
+        const user = req.user;
+
+        if(!user){
+            res.status(500);
+            return ;
+        }
+
+        const booking = await bookingService.getCurrentBookingForUser(user.userId);
+
+        res.status(200).json(booking);
+    } catch (error) {
+        res.status(400).json({ error: (error as Error).message });
+    }
+};
+
+export const getHistory = async (req: AuthRequest, res: Response) => {
+    try {
+        const user = req.user;
+
+        if (!user) {
+            res.status(500);
+            return;
+        }
+
+        const booking = await bookingService.getUserHistory(user.userId);
+
+        res.status(200).json(booking);
+    } catch (error) {
+        res.status(400).json({error: (error as Error).message});
+    }
+}

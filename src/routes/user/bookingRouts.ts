@@ -3,17 +3,19 @@ import {
     createBooking,
     getBooking,
     getAllBookings,
-    updateStatus,
-    deleteBooking
+    deleteBooking,
+    getHistory,
+    getCurrentBooking
 } from "../../controllers/user/bookingController";
 import { authenticate } from "../../middleware/authMiddleware";
 
 const bookingRoutes = Router();
 
-bookingRoutes.post("/create", authenticate, createBooking);
-bookingRoutes.get("/:id", authenticate, getBooking);
 bookingRoutes.get("/", authenticate, getAllBookings);
-bookingRoutes.patch("/:id/status", authenticate, updateStatus);
+bookingRoutes.post("/create", authenticate, createBooking);
+bookingRoutes.get("/history",authenticate,getHistory);
+bookingRoutes.get("/current",authenticate,getCurrentBooking);
+bookingRoutes.get("/:id", authenticate, getBooking);
 bookingRoutes.delete("/:id", authenticate, deleteBooking);
 
 export default bookingRoutes;

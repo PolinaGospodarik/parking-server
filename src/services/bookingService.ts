@@ -118,3 +118,40 @@ export const isCarBookedAtTime = async (carId: number, from: Date, to: Date): Pr
 
     return !!existingBooking;
 };
+
+export const getCurrentBookingForUser = async (userId: number) => {
+    const now = new Date();
+    now.setHours(now.getHours() + 3);
+
+    const booking = await prisma.booking.findFirst({
+        where: {
+            startTime: { lte: now },
+            endTime: { gte: now },
+            car: {
+                userId: userId
+            }
+        },
+        include: {
+            car: true
+        }
+    });
+
+    return booking;
+};
+
+export const getUserHistory = async (userId: number) => {
+
+    const booking = await prisma.booking.findFirst({
+        where: {
+            status: BookingStatus.COMPLETED,
+            car: {
+                userId: userId
+            }
+        },
+        include: {
+            car: true
+        }
+    });
+
+    return booking;
+};
