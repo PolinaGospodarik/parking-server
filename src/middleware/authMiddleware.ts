@@ -22,7 +22,7 @@ export const authenticate = async (req: AuthRequest, res: Response, next: NextFu
     const token = req.headers.authorization?.split(" ")[1];
 
     if (!token) {
-        res.status(401).json({ message: "Нет доступа" });
+        res.status(419).json({ message: "Нет доступа" });
         return;
     }
 
@@ -31,6 +31,6 @@ export const authenticate = async (req: AuthRequest, res: Response, next: NextFu
         req.user = decoded;
         next();
     } catch (error) {
-        res.status(401).json({ message: "Неверный токен" });
+        res.status(419).json({ message: "Неверный токен" });
     }
 };
