@@ -141,7 +141,7 @@ export const getCurrentBookingForUser = async (userId: number) => {
 
 export const getUserHistory = async (userId: number) => {
 
-    const booking = await prisma.booking.findFirst({
+    const booking = await prisma.booking.findMany({
         where: {
             status: BookingStatus.COMPLETED,
             car: {
