@@ -121,7 +121,6 @@ export const isCarBookedAtTime = async (carId: number, from: Date, to: Date): Pr
 
 export const getCurrentBookingForUser = async (userId: number) => {
     const now = new Date();
-    now.setHours(now.getHours() + 3);
 
     const booking = await prisma.booking.findFirst({
         where: {
