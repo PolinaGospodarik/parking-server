@@ -153,3 +153,20 @@ export const getHistory = async (req: AuthRequest, res: Response) => {
         res.status(400).json({error: (error as Error).message});
     }
 }
+
+export const getFeatureBooking = async (req: AuthRequest, res: Response) => {
+    try {
+        const user = req.user;
+
+        if (!user) {
+            res.status(500);
+            return;
+        }
+
+        const booking = await bookingService.getFeature(user.userId);
+
+        res.status(200).json(booking);
+    } catch (error) {
+        res.status(400).json({error: (error as Error).message});
+    }
+}

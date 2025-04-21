@@ -154,3 +154,20 @@ export const getUserHistory = async (userId: number) => {
 
     return booking;
 };
+
+export const getFeature = async (userId: number) => {
+
+    const booking = await prisma.booking.findMany({
+        where: {
+            status: BookingStatus.PENDING,
+            car: {
+                userId: userId
+            }
+        },
+        include: {
+            car: true
+        }
+    });
+
+    return booking;
+};
