@@ -1,5 +1,6 @@
 import type {Request, Response} from "express";
 import authService from "../services/authService";
+import type {AuthRequest} from "../middleware/authMiddleware.ts";
 
 
 export const loginUser = async (req: Request, res: Response) => {
@@ -21,11 +22,11 @@ export const refreshToken = async (req: Request, res: Response) => {
     try {
         const refreshToken = req.body.refreshToken;
         const accessToken = await authService.refresh(refreshToken);
-        if(accessToken){
+        if (accessToken) {
             res.json({
                 accessToken
             });
-        }else {
+        } else {
             res.status(401).json({message: "Неверный токен"});
         }
 
@@ -36,4 +37,15 @@ export const refreshToken = async (req: Request, res: Response) => {
             res.status(500).json({message: "Неизвестная ошибка"});
         }
     }
+};
+
+
+export const getUser = async (req: AuthRequest, res: Response): Promise<void> => {
+    if (!req.user) {
+        res.status(401).json({message: "Пользователь не авторизован"});
+        return;
+    }
+
+    const user = await authService.getUser(req.user.userId);
+    res.json(user);
 };

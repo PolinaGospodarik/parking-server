@@ -51,7 +51,11 @@ class AuthService {
     }
 
     // Вход пользователя
-    async login({phoneNumber, password}: LoginInput): Promise<{ accessToken: string; refreshToken: string; user:User }> {
+    async login({phoneNumber, password}: LoginInput): Promise<{
+        accessToken: string;
+        refreshToken: string;
+        user: User
+    }> {
         const user = await prisma.user.findUnique({where: {phoneNumber}});
 
         if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -74,7 +78,7 @@ class AuthService {
         return {accessToken, refreshToken, user};
     }
 
-    async refresh(refreshToken:string): Promise<string|null>{
+    async refresh(refreshToken: string): Promise<string | null> {
         try {
             const payload = jwt.verify(
                 refreshToken,
@@ -82,15 +86,19 @@ class AuthService {
             ) as { userId: string; role: string };
 
             const newAccessToken = jwt.sign(
-                { userId: payload.userId, role: payload.role },
+                {userId: payload.userId, role: payload.role},
                 process.env.JWT_SECRET as string,
-                { expiresIn: "1h" }
+                {expiresIn: "1h"}
             );
 
             return newAccessToken;
         } catch (err) {
             return null;
         }
+    }
+
+    async getUser(userId: number) {
+        return prisma.user.findUnique({where: {id: userId}});
     }
 }
 
