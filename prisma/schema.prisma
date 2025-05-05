@@ -45,6 +45,9 @@ model Booking {
   endTime   DateTime
   status    BookingStatus @default(PENDING)
 
+  actualStartTime DateTime?
+  actualEndTime   DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -54,6 +57,7 @@ model Booking {
 
 enum BookingStatus {
   PENDING
+  ALLOWED
   ACTIVE
   COMPLETED
   CANCELLED

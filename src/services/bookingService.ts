@@ -171,3 +171,62 @@ export const getFeature = async (userId: number) => {
 
     return booking;
 };
+
+export const allowEntryForCar = async (carNumber: string) => {
+    const now = new Date();
+
+    const booking = await prisma.booking.findFirst({
+        where: {
+            car: {
+                carNumber
+            },
+            status: BookingStatus.ALLOWED,
+        },
+        include: {
+            car: true
+        }
+    });
+
+    if (!booking) {
+        return null;
+    }
+
+    const updated = await prisma.booking.update({
+        where: { id: booking.id },
+        data: {
+            status: BookingStatus.ACTIVE,
+            actualStartTime: now
+            }
+    });
+
+    return updated;
+};
+
+export const completeBooking = async (carNumber: string) => {
+    const car = await prisma.car.findUnique({
+        where: { carNumber },
+        include: {
+            Booking: {
+                where: { status: BookingStatus.ACTIVE},
+                orderBy: { startTime: 'desc' },
+                take: 1
+            }
+        }
+    });
+
+    if (!car || car.Booking.length === 0) {
+        throw new Error('Активное бронирование не найдено');
+    }
+
+    const booking = car.Booking[0];
+
+    const updated = await prisma.booking.update({
+        where: { id: booking.id },
+        data: {
+            status: BookingStatus.COMPLETED,
+            actualEndTime: new Date()
+        }
+    });
+
+    return updated;
+};
