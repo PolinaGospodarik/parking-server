@@ -9,7 +9,11 @@ export const getOccupiedPlaces = async () => {
             status: {in: [BookingStatus.ACTIVE, BookingStatus.ALLOWED]},
         },
         include: {
-            car: true
+            car: {
+                include: {
+                    user: true,
+                },
+            }
         }
     });
 
